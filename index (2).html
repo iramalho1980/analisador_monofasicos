@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Produtos - Monofásicos e Tributados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f1c40f;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #f1c40f;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #cccccc;
+        }
+
+        .upload-section {
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #555;
+        }
+
+        .upload-area {
+            border: 3px dashed #f1c40f;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background: rgba(241, 196, 15, 0.1);
+            border-color: #f39c12;
+        }
+
+        .upload-area.dragover {
+            background: rgba(241, 196, 15, 0.2);
+            border-color: #f39c12;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .data-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .data-card {
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #555;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1c40f;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: #f1c40f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: #2c2c2c;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+
+        th {
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            color: #2c2c2c;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            color: #cccccc;
+        }
+
+        tr:hover {
+            background: rgba(241, 196, 15, 0.1);
+        }
+
+        .summary-section {
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f1c40f;
+        }
+
+        .summary-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .summary-title {
+            font-size: 1.8rem;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .summary-item {
+            background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #666;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-bottom: 5px;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #f1c40f;
+        }
+
+        .spinner {
+            border: 3px solid #555;
+            border-top: 3px solid #f1c40f;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .data-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Análise de Produtos</h1>
+            <p>Sistema de análise para produtos monofásicos e tributados</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-text">📁 Clique aqui ou arraste seu arquivo Excel</div>
+                <div class="upload-subtext">Formatos suportados: .xls, .xlsx</div>
+                <input type="file" id="fileInput" class="file-input" accept=".xls,.xlsx">
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <div>Processando arquivo...</div>
+        </div>
+
+        <div class="data-section" id="dataSection" style="display: none;">
+            <div class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">S</div>
+                    <div class="card-title">Produtos Monofásicos</div>
+                </div>
+                <div class="table-container">
+                    <table id="monofasicosTable">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>NCM</th>
+                                <th>CFOP</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monofasicosBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">N</div>
+                    <div class="card-title">Produtos Tributados</div>
+                </div>
+                <div class="table-container">
+                    <table id="tributadosTable">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>NCM</th>
+                                <th>CFOP</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tributadosBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="ncm-section" id="ncmSection" style="display: none;">
+            <div class="data-card" style="grid-column: 1 / -1;">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <div class="card-title">NCMs Únicos por Categoria</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: #f1c40f; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
+                        <div class="table-container" style="max-height: 300px;">
+                            <table id="ncmMonofasicosTable">
+                                <thead>
+                                    <tr>
+                                        <th>NCM</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ncmMonofasicosBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #f1c40f; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
+                        <div class="table-container" style="max-height: 300px;">
+                            <table id="ncmTributadosTable">
+                                <thead>
+                                    <tr>
+                                        <th>NCM</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ncmTributadosBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section" id="summarySection" style="display: none;">
+            <div class="summary-header">
+                <div class="summary-title">📈 Resumo Geral</div>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-label">Total Monofásicos</div>
+                    <div class="summary-value" id="totalMonofasicos">R$ 0,00</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Total Tributados</div>
+                    <div class="summary-value" id="totalTributados">R$ 0,00</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Qtd. Monofásicos</div>
+                    <div class="summary-value" id="qtdMonofasicos">0</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Qtd. Tributados</div>
+                    <div class="summary-value" id="qtdTributados">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        let dadosExcel = [];
+        
+        // Elementos DOM
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const loading = document.getElementById('loading');
+        const dataSection = document.getElementById('dataSection');
+        const ncmSection = document.getElementById('ncmSection');
+        const summarySection = document.getElementById('summarySection');
+        
+        // Event listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('dragleave', handleDragLeave);
+        uploadArea.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        }
+        
+        function handleDragLeave(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+        
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+        
+        function processFile(file) {
+            if (!file.name.match(/\.(xls|xlsx)$/i)) {
+                alert('Por favor, selecione um arquivo Excel (.xls ou .xlsx)');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            dataSection.style.display = 'none';
+            summarySection.style.display = 'none';
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+                    
+                    dadosExcel = jsonData;
+                    processarDados();
+                } catch (error) {
+                    console.error('Erro ao processar arquivo:', error);
+                    alert('Erro ao processar o arquivo Excel. Verifique se o arquivo está correto.');
+                } finally {
+                    loading.style.display = 'none';
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+        
+        function processarDados() {
+            // Filtrar produtos monofásicos (sujeito_trib = "S")
+            const monofasicos = dadosExcel.filter(item => 
+                item.sujeito_trib && item.sujeito_trib.toString().toUpperCase() === 'S'
+            );
+            
+            // Filtrar produtos tributados (sujeito_trib = "N")
+            const tributados = dadosExcel.filter(item => 
+                item.sujeito_trib && item.sujeito_trib.toString().toUpperCase() === 'N'
+            );
+            
+            // Preencher tabelas
+            preencherTabela('monofasicosBody', monofasicos);
+            preencherTabela('tributadosBody', tributados);
+            
+            // Processar NCMs únicos
+            processarNCMsUnicos(monofasicos, tributados);
+            
+            // Calcular totais
+            calcularTotais(monofasicos, tributados);
+            
+            // Mostrar seções
+            dataSection.style.display = 'grid';
+            ncmSection.style.display = 'block';
+            summarySection.style.display = 'block';
+        }
+        
+        function processarNCMsUnicos(monofasicos, tributados) {
+            // Processar NCMs monofásicos únicos
+            const ncmMonofasicos = agruparPorNCM(monofasicos);
+            preencherTabelaNCM('ncmMonofasicosBody', ncmMonofasicos);
+            
+            // Processar NCMs tributados únicos
+            const ncmTributados = agruparPorNCM(tributados);
+            preencherTabelaNCM('ncmTributadosBody', ncmTributados);
+        }
+        
+        function agruparPorNCM(dados) {
+            const agrupados = {};
+            
+            dados.forEach(item => {
+                const ncm = item.ncm_pdi || 'N/A';
+                const valor = parseFloat(item.vcon_pdi) || 0;
+                
+                if (!agrupados[ncm]) {
+                    agrupados[ncm] = {
+                        ncm: ncm,
+                        quantidade: 0,
+                        valorTotal: 0
+                    };
+                }
+                
+                agrupados[ncm].quantidade += 1;
+                agrupados[ncm].valorTotal += valor;
+            });
+            
+            // Converter objeto em array e ordenar por NCM
+            return Object.values(agrupados).sort((a, b) => a.ncm.localeCompare(b.ncm));
+        }
+        
+        function preencherTabelaNCM(bodyId, dados) {
+            const tbody = document.getElementById(bodyId);
+            tbody.innerHTML = '';
+            
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="no-data">Nenhum NCM encontrado</td></tr>';
+                return;
+            }
+            
+            dados.forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${item.ncm}</td>
+                    <td>${item.quantidade}</td>
+                    <td>${formatarMoeda(item.valorTotal)}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function preencherTabela(bodyId, dados) {
+            const tbody = document.getElementById(bodyId);
+            tbody.innerHTML = '';
+            
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="no-data">Nenhum produto encontrado</td></tr>';
+                return;
+            }
+            
+            dados.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Produto (desc_pdi)
+                const produto = item.desc_pdi || 'N/A';
+                
+                // NCM (ncm_pdi)
+                const ncm = item.ncm_pdi || 'N/A';
+                
+                // CFOP (cfop_pdi)
+                const cfop = item.cfop_pdi || 'N/A';
+                
+                // Valor (vcon_pdi) - formatado como moeda brasileira
+                const valor = item.vcon_pdi ? formatarMoeda(item.vcon_pdi) : 'R$ 0,00';
+                
+                row.innerHTML = `
+                    <td>${produto}</td>
+                    <td>${ncm}</td>
+                    <td>${cfop}</td>
+                    <td>${valor}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function calcularTotais(monofasicos, tributados) {
+            // Calcular total monofásicos
+            const totalMonofasicos = monofasicos.reduce((sum, item) => {
+                return sum + (parseFloat(item.vcon_pdi) || 0);
+            }, 0);
+            
+            // Calcular total tributados
+            const totalTributados = tributados.reduce((sum, item) => {
+                return sum + (parseFloat(item.vcon_pdi) || 0);
+            }, 0);
+            
+            // Atualizar elementos do resumo
+            document.getElementById('totalMonofasicos').textContent = formatarMoeda(totalMonofasicos);
+            document.getElementById('totalTributados').textContent = formatarMoeda(totalTributados);
+            document.getElementById('qtdMonofasicos').textContent = monofasicos.length;
+            document.getElementById('qtdTributados').textContent = tributados.length;
+        }
+        
+        function formatarMoeda(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valor);
+        }
+        
+        console.log('Aplicação carregada com sucesso!');
+    </script>
+</body>
+</html>
+
