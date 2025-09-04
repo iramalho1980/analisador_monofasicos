@@ -508,41 +508,46 @@
 
         <div class="ncm-section" id="ncmSection" style="display: none;">
             <div class="data-card" style="grid-column: 1 / -1;">
-                <div class="card-header">
-                    <div class="card-icon">📋</div>
-                    <div class="card-title">NCMs Únicos por Categoria</div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <h4 style="color: #b8860b; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
-                        <div class="table-container ncm-table-container" style="max-height: 300px; overflow-y: auto; overflow-x: auto;">
-                            <table id="ncmMonofasicosTable">
-                                <thead>
-                                    <tr>
-                                        <th>NCM</th>
-                                        <th>Quantidade</th>
-                                        <th>Valor Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ncmMonofasicosBody">
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="collapsible-header" id="ncmHeader">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">NCMs Únicos por Categoria</div>
                     </div>
-                    <div>
-                        <h4 style="color: #b8860b; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
-                        <div class="table-container ncm-table-container" style="max-height: 300px; overflow-y: auto; overflow-x: auto;">
-                            <table id="ncmTributadosTable">
-                                <thead>
-                                    <tr>
-                                        <th>NCM</th>
-                                        <th>Quantidade</th>
-                                        <th>Valor Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ncmTributadosBody">
-                                </tbody>
-                            </table>
+                    <div class="arrow">▶</div>
+                </div>
+                <div class="collapsible-content" id="ncmContent">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4 style="color: #b8860b; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
+                            <div class="table-container ncm-table-container" style="max-height: 300px; overflow-y: auto; overflow-x: auto;">
+                                <table id="ncmMonofasicosTable">
+                                    <thead>
+                                        <tr>
+                                            <th>NCM</th>
+                                            <th>Quantidade</th>
+                                            <th>Valor Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ncmMonofasicosBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: #b8860b; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
+                            <div class="table-container ncm-table-container" style="max-height: 300px; overflow-y: auto; overflow-x: auto;">
+                                <table id="ncmTributadosTable">
+                                    <thead>
+                                        <tr>
+                                            <th>NCM</th>
+                                            <th>Quantidade</th>
+                                            <th>Valor Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ncmTributadosBody">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -600,6 +605,8 @@
         const monofasicosContent = document.getElementById("monofasicosContent");
         const tributadosHeader = document.getElementById("tributadosHeader");
         const tributadosContent = document.getElementById("tributadosContent");
+        const ncmHeader = document.getElementById("ncmHeader");
+        const ncmContent = document.getElementById("ncmContent");
         
         // Funções para recolher/expandir (mantendo funcionalidade original)
         function toggleCollapsible(header, content) {
@@ -611,10 +618,12 @@
 
         toggleCollapsible(monofasicosHeader, monofasicosContent);
         toggleCollapsible(tributadosHeader, tributadosContent);
+        toggleCollapsible(ncmHeader, ncmContent);
 
         // Inicialmente recolhidos
         monofasicosContent.classList.remove("expanded");
         tributadosContent.classList.remove("expanded");
+        ncmContent.classList.remove("expanded");
         
         // Event listeners
         uploadArea.addEventListener('click', () => fileInput.click());
