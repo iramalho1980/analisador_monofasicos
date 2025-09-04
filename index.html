@@ -13,8 +13,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 100%);
+            color: #2c2c2c;
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,50 +28,103 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid #f1c40f;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            pointer-events: none;
         }
 
         .header h1 {
             font-size: 2.5rem;
-            color: #f1c40f;
+            color: #1a73e8;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
             font-size: 1.1rem;
-            color: #cccccc;
+            color: #5f6368;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(26, 115, 232, 0.9);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-btn:hover {
+            background: rgba(26, 115, 232, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+        }
+
+        .download-btn::before {
+            content: '📥';
+            font-size: 1.2rem;
         }
 
         .upload-section {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid #555;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .upload-area {
-            border: 3px dashed #f1c40f;
-            border-radius: 10px;
+            border: 3px dashed #9aa0a6;
+            border-radius: 15px;
             padding: 40px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .upload-area:hover {
-            background: rgba(241, 196, 15, 0.1);
-            border-color: #f39c12;
+            background: rgba(26, 115, 232, 0.1);
+            border-color: #1a73e8;
         }
 
         .upload-area.dragover {
-            background: rgba(241, 196, 15, 0.2);
-            border-color: #f39c12;
+            background: rgba(26, 115, 232, 0.15);
+            border-color: #1a73e8;
         }
 
         .file-input {
@@ -80,12 +133,13 @@
 
         .upload-text {
             font-size: 1.2rem;
-            color: #f1c40f;
+            color: #1a73e8;
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .upload-subtext {
-            color: #cccccc;
+            color: #5f6368;
             font-size: 0.9rem;
         }
 
@@ -97,17 +151,19 @@
         }
 
         .data-card {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid #555;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .data-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .card-header {
@@ -115,26 +171,27 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f1c40f;
+            border-bottom: 2px solid rgba(26, 115, 232, 0.3);
         }
 
         .card-icon {
             width: 40px;
             height: 40px;
-            background: #f1c40f;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
             font-size: 1.2rem;
-            color: #2c2c2c;
+            color: white;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
         }
 
         .card-title {
             font-size: 1.4rem;
-            color: #f1c40f;
+            color: #1a73e8;
             font-weight: 600;
         }
 
@@ -142,6 +199,8 @@
             overflow-x: auto;
             max-height: 400px;
             overflow-y: auto;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         table {
@@ -153,32 +212,40 @@
         th, td {
             padding: 12px 8px;
             text-align: left;
-            border-bottom: 1px solid #555;
+            border-bottom: 1px solid rgba(95, 99, 104, 0.2);
         }
 
         th {
-            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-            color: #2c2c2c;
+            background: rgba(26, 115, 232, 0.1);
+            color: #1a73e8;
             font-weight: 600;
             position: sticky;
             top: 0;
             z-index: 10;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         td {
-            color: #cccccc;
+            color: #3c4043;
         }
 
         tr:hover {
-            background: rgba(241, 196, 15, 0.1);
+            background: rgba(26, 115, 232, 0.05);
         }
 
         .summary-section {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border: 2px solid #f1c40f;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .ncm-section {
+            margin-bottom: 30px;
         }
 
         .summary-header {
@@ -188,8 +255,9 @@
 
         .summary-title {
             font-size: 1.8rem;
-            color: #f1c40f;
+            color: #1a73e8;
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .summary-grid {
@@ -200,22 +268,30 @@
         }
 
         .summary-item {
-            background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
-            border: 1px solid #666;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-item:hover {
+            transform: translateY(-3px);
         }
 
         .summary-label {
             font-size: 0.9rem;
-            color: #cccccc;
+            color: #5f6368;
             margin-bottom: 5px;
+            font-weight: 500;
         }
 
         .summary-value {
             font-size: 1.5rem;
-            color: #f1c40f;
+            color: #1a73e8;
             font-weight: bold;
         }
 
@@ -223,12 +299,12 @@
             display: none;
             text-align: center;
             padding: 20px;
-            color: #f1c40f;
+            color: #1a73e8;
         }
 
         .spinner {
-            border: 3px solid #555;
-            border-top: 3px solid #f1c40f;
+            border: 3px solid rgba(26, 115, 232, 0.2);
+            border-top: 3px solid #1a73e8;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -258,8 +334,25 @@
         .no-data {
             text-align: center;
             padding: 40px;
-            color: #888;
+            color: #9aa0a6;
             font-style: italic;
+        }
+
+        /* Efeitos glass adicionais */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Detalhes em cinza claro e escuro */
+        .light-gray {
+            color: #9aa0a6;
+        }
+
+        .dark-gray {
+            color: #5f6368;
         }
     </style>
 </head>
@@ -268,6 +361,11 @@
         <div class="header">
             <h1>📊 Análise de Produtos</h1>
             <p>Sistema de análise para produtos monofásicos e tributados</p>
+            <a href="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               download="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               class="download-btn">
+               Baixar Arquivo BGR
+            </a>
         </div>
 
         <div class="upload-section">
@@ -335,7 +433,7 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <h4 style="color: #f1c40f; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
+                        <h4 style="color: #1a73e8; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
                         <div class="table-container" style="max-height: 300px;">
                             <table id="ncmMonofasicosTable">
                                 <thead>
@@ -351,7 +449,7 @@
                         </div>
                     </div>
                     <div>
-                        <h4 style="color: #f1c40f; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
+                        <h4 style="color: #1a73e8; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
                         <div class="table-container" style="max-height: 300px;">
                             <table id="ncmTributadosTable">
                                 <thead>
