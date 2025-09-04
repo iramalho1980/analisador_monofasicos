@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise de Produtos - Monofásicos e Tributados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,7 +13,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 300;
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d4a3e 50%, #1e3a2d 75%, #2a4a3a 100%);
             color: #c0c0c0;
             min-height: 100vh;
@@ -59,9 +61,12 @@
 
         .header h1 {
             font-size: 2.5rem;
-            color: #FFD700;            margin-bottom: 20px;
+            color: #FFD700;
+            margin-bottom: 20px;
             position: relative;
             z-index: 1;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 700;
         }
 
         .download-btn {
@@ -328,7 +333,53 @@
             font-style: italic;
         }
 
-        /* Efeitos glass adicionais */
+        /* Fontes Ubuntu */
+        h1, h2, h3, h4, .card-title, .summary-title {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 700; /* Ubuntu Bold */
+        }
+
+        p, div, span, table, th, td, label, input, button, a, .upload-text, .upload-subtext {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 300; /* Ubuntu Light */
+        }
+
+        /* Estilos para quadros recolhíveis */
+        .collapsible-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            margin-bottom: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .collapsible-header:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 1000px;
+        }
+
+        .collapsible-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        .collapsible-header .arrow.expanded {
+            transform: rotate(90deg);
+        }
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -357,11 +408,7 @@
         <div class="header">
             <h1>📊 Análise de Produtos</h1>
             <p>Sistema de análise para produtos monofásicos e tributados</p>
-            <a href="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
-               download="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
-               class="download-btn">
-               Baixar Arquivo BGR
-            </a>
+            
         </div>
 
         <div class="upload-section">
@@ -379,44 +426,54 @@
 
         <div class="data-section" id="dataSection" style="display: none;">
             <div class="data-card">
-                <div class="card-header">
-                    <div class="card-icon">S</div>
-                    <div class="card-title">Produtos Monofásicos</div>
+                <div class="collapsible-header" id="monofasicosHeader">
+                    <div class="card-header">
+                        <div class="card-icon">S</div>
+                        <div class="card-title">Produtos Monofásicos</div>
+                    </div>
+                    <div class="arrow">▶</div>
                 </div>
-                <div class="table-container">
-                    <table id="monofasicosTable">
-                        <thead>
-                            <tr>
-                                <th>Produto</th>
-                                <th>NCM</th>
-                                <th>CFOP</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody id="monofasicosBody">
-                        </tbody>
-                    </table>
+                <div class="collapsible-content" id="monofasicosContent">
+                    <div class="table-container">
+                        <table id="monofasicosTable">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>NCM</th>
+                                    <th>CFOP</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="monofasicosBody">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <div class="data-card">
-                <div class="card-header">
-                    <div class="card-icon">N</div>
-                    <div class="card-title">Produtos Tributados</div>
+                <div class="collapsible-header" id="tributadosHeader">
+                    <div class="card-header">
+                        <div class="card-icon">N</div>
+                        <div class="card-title">Produtos Tributados</div>
+                    </div>
+                    <div class="arrow">▶</div>
                 </div>
-                <div class="table-container">
-                    <table id="tributadosTable">
-                        <thead>
-                            <tr>
-                                <th>Produto</th>
-                                <th>NCM</th>
-                                <th>CFOP</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tributadosBody">
-                        </tbody>
-                    </table>
+                <div class="collapsible-content" id="tributadosContent">
+                    <div class="table-container">
+                        <table id="tributadosTable">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>NCM</th>
+                                    <th>CFOP</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tributadosBody">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -492,12 +549,173 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         let dadosExcel = [];
+
+        // Elementos DOM
+        const uploadArea = document.getElementById("uploadArea");
+        const fileInput = document.getElementById("fileInput");
+        const loading = document.getElementById("loading");
+        const dataSection = document.getElementById("dataSection");
+        const monofasicosHeader = document.getElementById("monofasicosHeader");
+        const monofasicosContent = document.getElementById("monofasicosContent");
+        const tributadosHeader = document.getElementById("tributadosHeader");
+        const tributadosContent = document.getElementById("tributadosContent");
+        const monofasicosBody = document.getElementById("monofasicosBody");
+        const tributadosBody = document.getElementById("tributadosBody");
+        const ncmMonofasicosBody = document.getElementById("ncmMonofasicosBody");
+        const ncmTributadosBody = document.getElementById("ncmTributadosBody");
+        const ncmSection = document.getElementById("ncmSection");
+        const summarySection = document.getElementById("summarySection");
+
+        // Funções para recolher/expandir
+        function toggleCollapsible(header, content) {
+            header.addEventListener("click", () => {
+                content.classList.toggle("expanded");
+                header.querySelector(".arrow").classList.toggle("expanded");
+            });
+        }
+
+        toggleCollapsible(monofasicosHeader, monofasicosContent);
+        toggleCollapsible(tributadosHeader, tributadosContent);
+
+        // Inicialmente recolhidos
+        monofasicosContent.classList.remove("expanded");
+        tributadosContent.classList.remove("expanded");
+
+        // Lógica de Upload
+        uploadArea.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
+        uploadArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            uploadArea.classList.add("dragover");
+        });
+        uploadArea.addEventListener("dragleave", () => uploadArea.classList.remove("dragover"));
+        uploadArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove("dragover");
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file) return;
+
+            loading.style.display = "block";
+            dataSection.style.display = "none";
+            ncmSection.style.display = "none";
+            summarySection.style.display = "none";
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                dadosExcel = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                processarDados();
+                loading.style.display = "none";
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function processarDados() {
+            // Limpar dados anteriores
+            monofasicosBody.innerHTML = "";
+            tributadosBody.innerHTML = "";
+            ncmMonofasicosBody.innerHTML = "";
+            ncmTributadosBody.innerHTML = "";
+
+            let totalMonofasicos = 0;
+            let totalTributados = 0;
+            let qtdMonofasicos = 0;
+            let qtdTributados = 0;
+            let ncmMonofasicosUnicos = {};
+            let ncmTributadosUnicos = {};
+
+            const monofasicosNCMs = ["11010010", "11010020", "11022000", "11029000", "11041900", "11042900", "11051000", "11052000", "11061000", "11062000", "11063010", "11063090", "15071000", "15079011", "15079019", "15079090", "15081000", "15089000", "15100000", "15111000", "15119000", "15121110", "15121911", "15121919", "15122100", "15122910", "15122990", "15131100", "15131900", "15132110", "15132120", "15132910", "15132920", "15141100", "15141910", "15141990", "15149100", "15149910", "15149990", "15151100", "15151900", "15152100", "15152910", "15152990", "15153000", "15155000", "15159010", "15159021", "15159022", "15159090", "15161000", "15162000", "15171000", "15179010", "15179090", "15180010", "15180090", "17011200", "17011300", "17011400", "17019100", "17019900", "17023011", "17023019", "17023020", "17024010", "17024020", "17026010", "17026020", "17029000", "18063110", "18063120", "18063210", "18063220", "18069000", "19012000", "19019010", "19019020", "19019090", "19021100", "19021900", "19022000", "19023000", "19024000", "19041000", "19042000", "19043000", "19049000", "19051000", "19052010", "19052090", "19053100", "19053200", "19054000", "19059010", "19059020", "19059090", "21011110", "21011190", "21011200", "21012010", "21012020", "21032010", "21032090", "21039011", "21039019", "21039021", "21039029", "21039091", "21039099", "21041011", "21041019", "21041021", "21041029", "21042000", "22011000", "22021000", "22029100", "22029900", "23091000", "23099010", "23099030", "23099060", "23099090", "33030010", "33030020", "33041000", "33042010", "33042090", "33043000", "33049100", "33049910", "33049990", "33051000", "33052000", "33053000", "33059000", "33061000", "33062000", "33069000", "33071000", "33072010", "33072090", "33073000", "33074100", "33074900", "33079000", "34011110", "34011190", "34011900", "34012010", "34012090", "34013000", "34021110", "34021120", "34021130", "34021140", "34021190", "34021210", "34021290", "34021300", "34021900", "34022000", "34029011", "34029019", "34029021", "34029022", "34029023", "34029029", "34029031", "34029039", "34029090", "34051000", "34052000", "34053000", "34054000", "34059000", "34060000", "34070010", "34070020", "34070090", "35051000", "35052000", "35061010", "35061090", "35069110", "35069120", "35069190", "35069900", "38089111", "38089119", "38089120", "38089191", "38089192", "38089199", "38089211", "38089219", "38089220", "38089291", "38089292", "38089293", "38089299", "38089311", "38089312", "38089319", "38089321", "38089322", "38089323", "38089324", "38089325", "38089326", "38089329", "38089331", "38089332", "38089333", "38089411", "38089419", "38089420", "38089911", "38089919", "38089920", "39233000", "39241000", "39249000", "39269040", "39269090", "40111000", "40112010", "40112090", "40114000", "40115000", "40117010", "40117090", "40118010", "40118090", "40119010", "40119090", "40121100", "40121200", "40121300", "40121900", "40122000", "40131010", "40131090", "40132000", "40139000", "48181000", "48182000", "48183000", "48185000", "48189010", "48189090", "56012110", "56012190", "56031130", "56031190", "63079010", "68132000", "68138110", "68138190", "68138910", "68138990", "70071100", "70072100", "70091000", "70099100", "70099200", "73211100", "73218100", "73219000", "76151000", "82121020", "82122010", "82142000", "82149010", "82149090", "84073110", "84073190", "84073210", "84073290", "84073310", "84073390", "84073410", "84073490", "84082010", "84082020", "84082030", "84082090", "84099111", "84099112", "84099113", "84099114", "84099115", "84099116", "84099117", "84099118", "84099120", "84099130", "84099140", "84099190", "84099911", "84099912", "84099913", "84099914", "84099915", "84099916", "84099917", "84099921", "84099929", "84099930", "84099941", "84099949", "84099951", "84099959", "84099961", "84099969", "84099971", "84099979", "84099991", "84099999", "84133010", "84133020", "84133030", "84133090", "84145990", "84148011", "84148012", "84148013", "84148019", "84152010", "84152090", "84212300", "84213100", "84213990", "84219910", "84219991", "84219999", "84254200", "84311010", "84314100", "84314200", "84314921", "84314922", "84314923", "84314929", "84811000", "84812010", "84812090", "84818021", "84818092", "84818093", "84818095", "84818097", "84821010", "84821090", "84822010", "84822090", "84823000", "84824000", "84825010", "84825090", "84828000", "84831010", "84831020", "84831030", "84831040", "84831050", "84831090", "84832000", "84833010", "84833021", "84833029", "84833090", "84834010", "84834090", "84835010", "84835090", "84836011", "84836019", "84836090", "84839000", "84841000", "84849000", "85011011", "85011019", "85011021", "85011029", "85011030", "85012000", "85013110", "85013120", "85013210", "85013220", "85044010", "85044021", "85044022", "85044029", "85044030", "85044050", "85052010", "85052090", "85061010", "85061020", "85061031", "85061032", "85061039", "85063000", "85064000", "85065010", "85065090", "85066000", "85068010", "85068090", "85071010", "85071090", "85072010", "85072090", "85073011", "85073019", "85073090", "85074000", "85075010", "85075090", "85076000", "85078000", "85111000", "85112010", "85112090", "85113010", "85113020", "85114000", "85115010", "85115090", "85118010", "85118020", "85118030", "85118090", "85122011", "85122019", "85122021", "85122022", "85122023", "85122029", "85123000", "85124010", "85124020", "85129000", "85161000", "85171100", "85171211", "85171212", "85171213", "85171219", "85171221", "85171222", "85171223", "85171229", "85171231", "85171232", "85171239", "85171241", "85171249", "85171251", "85171252", "85171259", "85171260", "85171270", "85171290", "85171830", "85171890", "85176272", "85176277", "85177010", "85182100", "85182200", "85183000", "85185000", "85189010", "85219000", "85258011", "85258012", "85258013", "85258019", "85258021", "85258022", "85258029", "85272100", "85272900", "85287111", "85287119", "85287200", "85291011", "85291019", "85299020", "85361000", "85365090", "85366100", "85369010", "85369040", "85371020", "85391010", "85391090", "85392110", "85392190", "85392200", "85392910", "85392990", "85393111", "85393119", "85393120", "85393131", "85393132", "85393139", "85393210", "85393220", "85393911", "85393912", "85393919", "85393990", "85394110", "85394190", "85394900", "85442000", "85443000", "85444200", "87012000", "87021000", "87029000", "87031000", "87032100", "87032210", "87032290", "87032310", "87032390", "87032410", "87032490", "87033110", "87033190", "87033210", "87033290", "87033310", "87033390", "87034000", "87035000", "87036000", "87037000", "87038000", "87039000", "87042110", "87042120", "87042130", "87042190", "87042210", "87042220", "87042230", "87042290", "87042310", "87042320", "87042330", "87042390", "87043110", "87043120", "87043130", "87043190", "87043210", "87043220", "87043230", "87043290", "87049000", "87051010", "87051090", "87052000", "87053000", "87054000", "87059010", "87059090", "87060010", "87060020", "87060090", "87071000", "87079010", "87079090", "87081000", "87082100", "87082911", "87082912", "87082913", "87082914", "87082919", "87082991", "87082992", "87082993", "87082994", "87082995", "87082996", "87082999", "87083011", "87083019", "87083090", "87084011", "87084019", "87084080", "87084090", "87085011", "87085012", "87085019", "87085080", "87085091", "87085099", "87087010", "87087090", "87088000", "87089100", "87089200", "87089300", "87089411", "87089412", "87089413", "87089481", "87089482", "87089483", "87089491", "87089492", "87089493", "87089510", "87089521", "87089522", "87089529", "87089910", "87089990", "87111000", "87112010", "87112020", "87112090", "87113000", "87114000", "87115000", "87116000", "87119000", "87141000", "87162000", "87163100", "87163900", "87164000", "87169090", "90011011", "90011019", "90011020", "90021110", "90021190", "90021900", "90251110", "90251190", "90251910", "90251990", "90261011", "90261019", "90261021", "90261029", "90262010", "90262090", "90268000", "90291010", "90291090", "90292010", "90292020", "90299010", "90299090", "90303100", "90303311", "90303319", "90303321", "90303329", "90303390", "90318011", "90318012", "90318020", "90318030", "90318040", "90318050", "90318060", "90318091", "90318099", "90328100", "90328911", "90328921", "90328922", "90328923", "90328924", "90328925", "90328929", "90328930", "90328981", "90328982", "90328983", "90328989", "90328990", "90329010", "90329091", "90329099", "91040000", "94012000", "94019090", "94051010", "94051091", "94051092", "94051093", "94051099", "94052000", "94054010", "94054090", "94056000", "95069100", "96035000", "96138000", "96139000"];
+
+            for (let i = 1; i < dadosExcel.length; i++) {
+                const row = dadosExcel[i];
+                const produto = row[0];
+                const ncm = String(row[1]);
+                const cfop = String(row[2]);
+                const valor = parseFloat(row[3]);
+
+                if (!produto || !ncm || !cfop || isNaN(valor)) continue;
+
+                const newRow = `<tr><td>${produto}</td><td>${ncm}</td><td>${cfop}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+
+                if (monofasicosNCMs.includes(ncm)) {
+                    monofasicosBody.innerHTML += newRow;
+                    totalMonofasicos += valor;
+                    qtdMonofasicos++;
+                    if (!ncmMonofasicosUnicos[ncm]) {
+                        ncmMonofasicosUnicos[ncm] = { qtd: 0, valor: 0 };
+                    }
+                    ncmMonofasicosUnicos[ncm].qtd++;
+                    ncmMonofasicosUnicos[ncm].valor += valor;
+                } else {
+                    tributadosBody.innerHTML += newRow;
+                    totalTributados += valor;
+                    qtdTributados++;
+                    if (!ncmTributadosUnicos[ncm]) {
+                        ncmTributadosUnicos[ncm] = { qtd: 0, valor: 0 };
+                    }
+                    ncmTributadosUnicos[ncm].qtd++;
+                    ncmTributadosUnicos[ncm].valor += valor;
+                }
+            }
+
+            // Preencher NCMs únicos
+            for (const ncm in ncmMonofasicosUnicos) {
+                const { qtd, valor } = ncmMonofasicosUnicos[ncm];
+                ncmMonofasicosBody.innerHTML += `<tr><td>${ncm}</td><td>${qtd}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+            }
+
+            for (const ncm in ncmTributadosUnicos) {
+                const { qtd, valor } = ncmTributadosUnicos[ncm];
+                ncmTributadosBody.innerHTML += `<tr><td>${ncm}</td><td>${qtd}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+            }
+
+            // Atualizar resumo
+            document.getElementById("totalMonofasicos").textContent = `R$ ${totalMonofasicos.toFixed(2)}`;
+            document.getElementById("totalTributados").textContent = `R$ ${totalTributados.toFixed(2)}`;
+            document.getElementById("qtdMonofasicos").textContent = qtdMonofasicos;
+            document.getElementById("qtdTributados").textContent = qtdTributados;
+
+            // Exibir seções
+            dataSection.style.display = "grid";
+            ncmSection.style.display = "block";
+            summarySection.style.display = "block";
+        }
+
+        console.log("Aplicação carregada com sucesso!");
+    </script>
         
         // Elementos DOM
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const loading = document.getElementById('loading');
-        const dataSection = document.getElementById('dataSection');
+        const uploadArea = document.getElementById("uploadArea");
+        const fileInput = document.getElementById("fileInput");
+        const loading = document.getElementById("loading");
+        const dataSection = document.getElementById("dataSection");
+        const monofasicosHeader = document.getElementById("monofasicosHeader");
+        const monofasicosContent = document.getElementById("monofasicosContent");
+        const tributadosHeader = document.getElementById("tributadosHeader");
+        const tributadosContent = document.getElementById("tributadosContent");
+
+        // Funções para recolher/expandir
+        function toggleCollapsible(header, content) {
+            header.addEventListener("click", () => {
+                content.classList.toggle("expanded");
+                header.querySelector(".arrow").classList.toggle("expanded");
+            });
+        }
+
+        toggleCollapsible(monofasicosHeader, monofasicosContent);
+        toggleCollapsible(tributadosHeader, tributadosContent);
+
+        // Inicialmente recolhidos
+        monofasicosContent.classList.remove("expanded");
+        tributadosContent.classList.remove("expanded");
+
+        // Restante do script
+        // ... (o restante do seu script JS virá aqui)
         const ncmSection = document.getElementById('ncmSection');
         const summarySection = document.getElementById('summarySection');
         
@@ -708,6 +926,55 @@
         
         console.log('Aplicação carregada com sucesso!');
     </script>
-</body>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               download="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               class="download-btn">
+               Baixar Arquivo BGR
+            </a>
+        </div>
+    </body>
 </html>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
+<style>
+    .collapsible-header {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 15px;
+        margin-bottom: 10px;
+        transition: background 0.3s ease;
+    }
+    .collapsible-header:hover {
+        background: rgba(255, 215, 0, 0.2);
+    }
+    .collapsible-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+    }
+    .collapsible-content.expanded {
+        max-height: 1000px; /* Adjust as needed to fit content */
+    }
+    .collapsible-header .arrow {
+        transition: transform 0.3s ease;
+    }
+    .collapsible-header .arrow.expanded {
+        transform: rotate(90deg);
+    }
+    h1, h2, h3, h4, .card-title, .summary-title {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 700; /* Ubuntu Bold */
+    }
+    body, p, div, span, table, th, td, label, input, button, a {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 300; /* Ubuntu Light */
+    }
+</style>
 
