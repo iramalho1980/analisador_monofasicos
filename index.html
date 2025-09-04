@@ -51,14 +51,6 @@
             pointer-events: none;
         }
 
-            color: #FFD700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
-            font-weight: 700;
-        }
-
         .header h1 {
             font-size: 2.5rem;
             color: #FFD700;
@@ -137,6 +129,7 @@
             display: none;
         }
 
+        .upload-text {
             color: #FFD700;
             margin-bottom: 10px;
             font-weight: 600;
@@ -193,6 +186,7 @@
             box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
         }
 
+        .card-title {
             color: #FFD700;
             font-weight: 600;
         }
@@ -217,6 +211,7 @@
             border-bottom: 1px solid rgba(224, 224, 224, 0.2);
         }
 
+        th {
             color: #FFD700;
             font-weight: 600;
             position: sticky;
@@ -290,10 +285,12 @@
             font-weight: 500;
         }
 
+        .summary-value {
             color: #FFD700;
             font-weight: bold;
         }
 
+        .loading {
             color: #FFD700;
         }
 
@@ -380,6 +377,8 @@
         .collapsible-header .arrow.expanded {
             transform: rotate(90deg);
         }
+
+        /* Efeitos glass adicionais */
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -408,7 +407,6 @@
         <div class="header">
             <h1>📊 Análise de Produtos</h1>
             <p>Sistema de análise para produtos monofásicos e tributados</p>
-            
         </div>
 
         <div class="upload-section">
@@ -419,7 +417,7 @@
             </div>
         </div>
 
-        <div class="loading" id="loading">
+        <div class="loading" id="loading" style="display: none;">
             <div class="spinner"></div>
             <div>Processando arquivo...</div>
         </div>
@@ -544,7 +542,18 @@
                 </div>
             </div>
         </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               download="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
+               class="download-btn">
+               Baixar Arquivo BGR
+            </a>
+        </div>
     </div>
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
@@ -688,293 +697,6 @@
 
         console.log("Aplicação carregada com sucesso!");
     </script>
-        
-        // Elementos DOM
-        const uploadArea = document.getElementById("uploadArea");
-        const fileInput = document.getElementById("fileInput");
-        const loading = document.getElementById("loading");
-        const dataSection = document.getElementById("dataSection");
-        const monofasicosHeader = document.getElementById("monofasicosHeader");
-        const monofasicosContent = document.getElementById("monofasicosContent");
-        const tributadosHeader = document.getElementById("tributadosHeader");
-        const tributadosContent = document.getElementById("tributadosContent");
-
-        // Funções para recolher/expandir
-        function toggleCollapsible(header, content) {
-            header.addEventListener("click", () => {
-                content.classList.toggle("expanded");
-                header.querySelector(".arrow").classList.toggle("expanded");
-            });
-        }
-
-        toggleCollapsible(monofasicosHeader, monofasicosContent);
-        toggleCollapsible(tributadosHeader, tributadosContent);
-
-        // Inicialmente recolhidos
-        monofasicosContent.classList.remove("expanded");
-        tributadosContent.classList.remove("expanded");
-
-        // Restante do script
-        // ... (o restante do seu script JS virá aqui)
-        const ncmSection = document.getElementById('ncmSection');
-        const summarySection = document.getElementById('summarySection');
-        
-        // Event listeners
-        uploadArea.addEventListener('click', () => fileInput.click());
-        uploadArea.addEventListener('dragover', handleDragOver);
-        uploadArea.addEventListener('dragleave', handleDragLeave);
-        uploadArea.addEventListener('drop', handleDrop);
-        fileInput.addEventListener('change', handleFileSelect);
-        
-        function handleDragOver(e) {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        }
-        
-        function handleDragLeave(e) {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-        }
-        
-        function handleDrop(e) {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                processFile(files[0]);
-            }
-        }
-        
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (file) {
-                processFile(file);
-            }
-        }
-        
-        function processFile(file) {
-            if (!file.name.match(/\.(xls|xlsx)$/i)) {
-                alert('Por favor, selecione um arquivo Excel (.xls ou .xlsx)');
-                return;
-            }
-            
-            loading.style.display = 'block';
-            dataSection.style.display = 'none';
-            summarySection.style.display = 'none';
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-                    
-                    dadosExcel = jsonData;
-                    processarDados();
-                } catch (error) {
-                    console.error('Erro ao processar arquivo:', error);
-                    alert('Erro ao processar o arquivo Excel. Verifique se o arquivo está correto.');
-                } finally {
-                    loading.style.display = 'none';
-                }
-            };
-            reader.readAsArrayBuffer(file);
-        }
-        
-        function processarDados() {
-            // Filtrar produtos monofásicos (sujeito_trib = "S")
-            const monofasicos = dadosExcel.filter(item => 
-                item.sujeito_trib && item.sujeito_trib.toString().toUpperCase() === 'S'
-            );
-            
-            // Filtrar produtos tributados (sujeito_trib = "N")
-            const tributados = dadosExcel.filter(item => 
-                item.sujeito_trib && item.sujeito_trib.toString().toUpperCase() === 'N'
-            );
-            
-            // Preencher tabelas
-            preencherTabela('monofasicosBody', monofasicos);
-            preencherTabela('tributadosBody', tributados);
-            
-            // Processar NCMs únicos
-            processarNCMsUnicos(monofasicos, tributados);
-            
-            // Calcular totais
-            calcularTotais(monofasicos, tributados);
-            
-            // Mostrar seções
-            dataSection.style.display = 'grid';
-            ncmSection.style.display = 'block';
-            summarySection.style.display = 'block';
-        }
-        
-        function processarNCMsUnicos(monofasicos, tributados) {
-            // Processar NCMs monofásicos únicos
-            const ncmMonofasicos = agruparPorNCM(monofasicos);
-            preencherTabelaNCM('ncmMonofasicosBody', ncmMonofasicos);
-            
-            // Processar NCMs tributados únicos
-            const ncmTributados = agruparPorNCM(tributados);
-            preencherTabelaNCM('ncmTributadosBody', ncmTributados);
-        }
-        
-        function agruparPorNCM(dados) {
-            const agrupados = {};
-            
-            dados.forEach(item => {
-                const ncm = item.ncm_pdi || 'N/A';
-                const valor = parseFloat(item.vcon_pdi) || 0;
-                
-                if (!agrupados[ncm]) {
-                    agrupados[ncm] = {
-                        ncm: ncm,
-                        quantidade: 0,
-                        valorTotal: 0
-                    };
-                }
-                
-                agrupados[ncm].quantidade += 1;
-                agrupados[ncm].valorTotal += valor;
-            });
-            
-            // Converter objeto em array e ordenar por NCM
-            return Object.values(agrupados).sort((a, b) => a.ncm.localeCompare(b.ncm));
-        }
-        
-        function preencherTabelaNCM(bodyId, dados) {
-            const tbody = document.getElementById(bodyId);
-            tbody.innerHTML = '';
-            
-            if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" class="no-data">Nenhum NCM encontrado</td></tr>';
-                return;
-            }
-            
-            dados.forEach(item => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td>${item.ncm}</td>
-                    <td>${item.quantidade}</td>
-                    <td>${formatarMoeda(item.valorTotal)}</td>
-                `;
-                
-                tbody.appendChild(row);
-            });
-        }
-        
-        function preencherTabela(bodyId, dados) {
-            const tbody = document.getElementById(bodyId);
-            tbody.innerHTML = '';
-            
-            if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="no-data">Nenhum produto encontrado</td></tr>';
-                return;
-            }
-            
-            dados.forEach(item => {
-                const row = document.createElement('tr');
-                
-                // Produto (desc_pdi)
-                const produto = item.desc_pdi || 'N/A';
-                
-                // NCM (ncm_pdi)
-                const ncm = item.ncm_pdi || 'N/A';
-                
-                // CFOP (cfop_pdi)
-                const cfop = item.cfop_pdi || 'N/A';
-                
-                // Valor (vcon_pdi) - formatado como moeda brasileira
-                const valor = item.vcon_pdi ? formatarMoeda(item.vcon_pdi) : 'R$ 0,00';
-                
-                row.innerHTML = `
-                    <td>${produto}</td>
-                    <td>${ncm}</td>
-                    <td>${cfop}</td>
-                    <td>${valor}</td>
-                `;
-                
-                tbody.appendChild(row);
-            });
-        }
-        
-        function calcularTotais(monofasicos, tributados) {
-            // Calcular total monofásicos
-            const totalMonofasicos = monofasicos.reduce((sum, item) => {
-                return sum + (parseFloat(item.vcon_pdi) || 0);
-            }, 0);
-            
-            // Calcular total tributados
-            const totalTributados = tributados.reduce((sum, item) => {
-                return sum + (parseFloat(item.vcon_pdi) || 0);
-            }, 0);
-            
-            // Atualizar elementos do resumo
-            document.getElementById('totalMonofasicos').textContent = formatarMoeda(totalMonofasicos);
-            document.getElementById('totalTributados').textContent = formatarMoeda(totalTributados);
-            document.getElementById('qtdMonofasicos').textContent = monofasicos.length;
-            document.getElementById('qtdTributados').textContent = tributados.length;
-        }
-        
-        function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(valor);
-        }
-        
-        console.log('Aplicação carregada com sucesso!');
-    </script>
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
-               download="ss10179842ss1017984movimentaodeprodutostributaomonofsicos.bgr" 
-               class="download-btn">
-               Baixar Arquivo BGR
-            </a>
-        </div>
-    </body>
+</body>
 </html>
-
-
-
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
-<style>
-    .collapsible-header {
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        background: rgba(255, 215, 0, 0.1);
-        border-radius: 15px;
-        margin-bottom: 10px;
-        transition: background 0.3s ease;
-    }
-    .collapsible-header:hover {
-        background: rgba(255, 215, 0, 0.2);
-    }
-    .collapsible-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease-out;
-    }
-    .collapsible-content.expanded {
-        max-height: 1000px; /* Adjust as needed to fit content */
-    }
-    .collapsible-header .arrow {
-        transition: transform 0.3s ease;
-    }
-    .collapsible-header .arrow.expanded {
-        transform: rotate(90deg);
-    }
-    h1, h2, h3, h4, .card-title, .summary-title {
-        font-family: 'Ubuntu', sans-serif;
-        font-weight: 700; /* Ubuntu Bold */
-    }
-    body, p, div, span, table, th, td, label, input, button, a {
-        font-family: 'Ubuntu', sans-serif;
-        font-weight: 300; /* Ubuntu Light */
-    }
-</style>
 
