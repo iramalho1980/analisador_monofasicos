@@ -13,8 +13,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 100%);
-            color: #2c2c2c;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d4a3e 50%, #a8d5ba 75%, #c8e6c9 100%);
+            color: #f5f5f5;
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,12 +28,12 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -45,22 +45,23 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(168, 213, 186, 0.1) 100%);
             pointer-events: none;
         }
 
         .header h1 {
             font-size: 2.5rem;
-            color: #1a73e8;
+            color: #ffd700;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
+            font-weight: 700;
         }
 
         .header p {
             font-size: 1.1rem;
-            color: #5f6368;
+            color: #e0e0e0;
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
@@ -70,61 +71,64 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 24px;
-            background: rgba(26, 115, 232, 0.9);
-            color: white;
+            padding: 15px 30px;
+            background: rgba(255, 215, 0, 0.9);
+            color: #1a1a1a;
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
+            border-radius: 30px;
+            font-weight: 700;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
             position: relative;
             z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .download-btn:hover {
-            background: rgba(26, 115, 232, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+            background: rgba(255, 215, 0, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            border-color: rgba(255, 215, 0, 0.8);
         }
 
         .download-btn::before {
             content: '📥';
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         .upload-section {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .upload-area {
-            border: 3px dashed #9aa0a6;
-            border-radius: 15px;
+            border: 3px dashed #e0e0e0;
+            border-radius: 20px;
             padding: 40px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .upload-area:hover {
-            background: rgba(26, 115, 232, 0.1);
-            border-color: #1a73e8;
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
         }
 
         .upload-area.dragover {
-            background: rgba(26, 115, 232, 0.15);
-            border-color: #1a73e8;
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #ffd700;
         }
 
         .file-input {
@@ -133,13 +137,13 @@
 
         .upload-text {
             font-size: 1.2rem;
-            color: #1a73e8;
+            color: #ffd700;
             margin-bottom: 10px;
             font-weight: 600;
         }
 
         .upload-subtext {
-            color: #5f6368;
+            color: #e0e0e0;
             font-size: 0.9rem;
         }
 
@@ -151,19 +155,19 @@
         }
 
         .data-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .data-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         .card-header {
@@ -171,27 +175,27 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(26, 115, 232, 0.3);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         .card-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            font-size: 1.2rem;
-            color: white;
+            font-size: 1.3rem;
+            color: #1a1a1a;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
         }
 
         .card-title {
             font-size: 1.4rem;
-            color: #1a73e8;
+            color: #ffd700;
             font-weight: 600;
         }
 
@@ -199,8 +203,8 @@
             overflow-x: auto;
             max-height: 400px;
             overflow-y: auto;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         table {
@@ -212,12 +216,12 @@
         th, td {
             padding: 12px 8px;
             text-align: left;
-            border-bottom: 1px solid rgba(95, 99, 104, 0.2);
+            border-bottom: 1px solid rgba(224, 224, 224, 0.2);
         }
 
         th {
-            background: rgba(26, 115, 232, 0.1);
-            color: #1a73e8;
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
             font-weight: 600;
             position: sticky;
             top: 0;
@@ -227,21 +231,21 @@
         }
 
         td {
-            color: #3c4043;
+            color: #e0e0e0;
         }
 
         tr:hover {
-            background: rgba(26, 115, 232, 0.05);
+            background: rgba(255, 215, 0, 0.08);
         }
 
         .summary-section {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
             padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .ncm-section {
@@ -255,7 +259,7 @@
 
         .summary-title {
             font-size: 1.8rem;
-            color: #1a73e8;
+            color: #ffd700;
             margin-bottom: 10px;
             font-weight: 600;
         }
@@ -268,30 +272,31 @@
         }
 
         .summary-item {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .summary-item:hover {
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
         }
 
         .summary-label {
             font-size: 0.9rem;
-            color: #5f6368;
+            color: #e0e0e0;
             margin-bottom: 5px;
             font-weight: 500;
         }
 
         .summary-value {
             font-size: 1.5rem;
-            color: #1a73e8;
+            color: #ffd700;
             font-weight: bold;
         }
 
@@ -299,12 +304,12 @@
             display: none;
             text-align: center;
             padding: 20px;
-            color: #1a73e8;
+            color: #ffd700;
         }
 
         .spinner {
-            border: 3px solid rgba(26, 115, 232, 0.2);
-            border-top: 3px solid #1a73e8;
+            border: 3px solid rgba(255, 215, 0, 0.2);
+            border-top: 3px solid #ffd700;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -334,25 +339,31 @@
         .no-data {
             text-align: center;
             padding: 40px;
-            color: #9aa0a6;
+            color: #e0e0e0;
             font-style: italic;
         }
 
         /* Efeitos glass adicionais */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        /* Detalhes em cinza claro e escuro */
+        /* Detalhes em amarelo e cinza claro */
+        .yellow-accent {
+            color: #ffd700;
+        }
+
         .light-gray {
-            color: #9aa0a6;
+            color: #e0e0e0;
         }
 
-        .dark-gray {
-            color: #5f6368;
+        /* Animação sutil para elementos glass */
+        .glass-effect:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 215, 0, 0.3);
         }
     </style>
 </head>
@@ -433,7 +444,7 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <h4 style="color: #1a73e8; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
+                        <h4 style="color: #ffd700; margin-bottom: 15px; text-align: center;">NCMs Monofásicos</h4>
                         <div class="table-container" style="max-height: 300px;">
                             <table id="ncmMonofasicosTable">
                                 <thead>
@@ -449,7 +460,7 @@
                         </div>
                     </div>
                     <div>
-                        <h4 style="color: #1a73e8; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
+                        <h4 style="color: #ffd700; margin-bottom: 15px; text-align: center;">NCMs Tributados</h4>
                         <div class="table-container" style="max-height: 300px;">
                             <table id="ncmTributadosTable">
                                 <thead>
